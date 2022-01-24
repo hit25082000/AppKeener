@@ -1,0 +1,32 @@
+﻿@model IEnumerable<AppKeener.Models.Estoque>
+
+@foreach (var item in Model) {
+            var cor = "";
+            if (item.Recebido - item.Enviado >= 0)
+            {
+                cor = "btn-success";
+            }
+            else
+            {
+                cor = "btn-danger";
+            }
+            <tr class="@cor ">
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recebido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enviado)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Produto.Nome)
+            </td>
+            <td class="text-right">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+            </td>
+        </tr>
+}

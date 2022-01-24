@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AppKeener.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Lista de Produtos</h1>
+
+<p>
+    <a class="btn btn-dark" asp-action="Create">Adicionar novo produto</a>
+</p>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr >            
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imagem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCadastro)
+            </td>
+           <td class="text-right">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
