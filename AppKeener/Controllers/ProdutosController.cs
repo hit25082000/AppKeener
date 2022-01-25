@@ -25,17 +25,26 @@ namespace AppKeener.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            //
-            foreach (var x in _context.Estoques)
+            foreach (var pro in _context.Produtos)
             {
-                var prodId = x.ProdutoId.Equals(_context.Produtos.Find(x.ProdutoId).Id);
-                var Quant = _context.Estoques.Where(a => a.ProdutoId == x.ProdutoId);
-
-                var Total = Quant.Sum(item => item.Recebido - item.Enviado);
-
-                if (prodId)
+                var produtos = _context.Estoques.FirstOrDefault(a => a.ProdutoId == pro.Id);
+                if (produtos != null)
                 {
-                    _context.Produtos.Find(x.ProdutoId).Quantidade = Total;   
+                    foreach (var mov in _context.Estoques)
+                    {
+                        var prodId = mov.ProdutoId.Equals(_context.Produtos.Find(mov.ProdutoId).Id);
+                        var Quant = _context.Estoques.Where(a => a.ProdutoId == mov.ProdutoId);
+                        var Total = Quant.Sum(item => item.Recebido - item.Enviado);
+
+                        if (prodId)
+                        {
+                            _context.Produtos.Find(mov.ProdutoId).Quantidade = Total;
+                        }
+                    }
+                }
+                else
+                {
+                    pro.Quantidade = 0;
                 }
             }
             await _context.SaveChangesAsync();
@@ -156,9 +165,20 @@ namespace AppKeener.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
+            var produto = await _context.Produtos.FindAsync(id);            
+
+            foreach (var mov in _context.Estoques)
+            {    
+                if (mov.Id.Equals(_context.Produtos.Find(produto.Id))){
+
+                    _context.Estoques.Remove(_context.Estoques.Find(mov.Id));
+                    
+                }               
+                
+            }
             _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -67,7 +67,8 @@ namespace AppKeener.Controllers
         public async Task<IActionResult> Create(Estoque estoque)
         {
             var Quant = _context.Produtos.Find(estoque.ProdutoId).Quantidade;
-            if (Quant > estoque.Enviado)
+            var Total = Quant + estoque.Recebido;
+            if (Total >= estoque.Enviado)
             {
                 if (ModelState.IsValid)
                 {
@@ -114,15 +115,14 @@ namespace AppKeener.Controllers
             }
 
             var Quant = _context.Produtos.Find(estoque.ProdutoId).Quantidade;
-            if (Quant > estoque.Enviado)
+            var Total = Quant + estoque.Recebido;
+            if (Total >= estoque.Enviado)
             {
                 if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        try
+                    try
                         {
-                            _context.Update(estoque);
+                        _context.Update(estoque);
                             await _context.SaveChangesAsync();
                         }
                         catch (DbUpdateConcurrencyException)
@@ -136,8 +136,7 @@ namespace AppKeener.Controllers
                                 throw;
                             }
                         }
-                        return RedirectToAction(nameof(Index));
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
             }
             else
