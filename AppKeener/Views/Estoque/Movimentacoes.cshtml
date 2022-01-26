@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AppKeener.Models.Estoque>
 
 @{
-    ViewData["Title"] = "Movimentações";
+    ViewData["Title"] = "Movimentações do Produto";
 }
 
-<h1>Lista de movimentações</h1>
+<h1>Movimentações do produto</h1>
 
 <p>
     <a class="btn btn-dark" asp-action="Create">Adicionar nova Movimentação</a>
@@ -34,3 +34,5 @@
         <partial name="_Table" />
     </tbody>
 </table>
+      <a class="btn btn-info" asp-controller="Produtos" asp-action="Index">Voltar</a>
+

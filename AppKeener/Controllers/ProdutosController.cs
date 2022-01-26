@@ -68,6 +68,8 @@ namespace AppKeener.Controllers
                 return NotFound();
             }
 
+
+
             return View(produto);
         }
 
@@ -186,5 +188,12 @@ namespace AppKeener.Controllers
         {
             return _context.Produtos.Any(e => e.Id == id);
         }
+
+        //GET: Movimentações
+        public async Task<IActionResult> Movimentacoes(Guid id)
+        {
+            return RedirectToAction("Movimentacoes", "Estoque", new { @id = id });
+        }
+
     }
 }

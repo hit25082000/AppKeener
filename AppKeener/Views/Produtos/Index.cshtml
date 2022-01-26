@@ -17,19 +17,13 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </th>
+            </th>           
             <th>
                 @Html.DisplayNameFor(model => model.Valor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </th>
+            </th>            
             <th></th>
         </tr>
     </thead>
@@ -41,21 +35,16 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagem)
-            </td>
+            </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCadastro)
-            </td>
+            </td>            
            <td class="text-right">
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-outline-dark" asp-action="Movimentacoes" asp-route-id="@item.Id">Movimentações</a> |
                 <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
             </td>

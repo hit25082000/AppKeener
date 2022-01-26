@@ -4,11 +4,11 @@
             var cor = "";
             if (item.Recebido - item.Enviado >= 0)
             {
-                cor = "btn-success";
+                cor = "alert-success";
             }
             else
             {
-                cor = "btn-danger";
+                cor = "alert-danger";
             }
             <tr class="@cor ">
             <td>
@@ -29,7 +29,7 @@
             <td class="text-right">
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                 <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
             </td>
         </tr>
 }

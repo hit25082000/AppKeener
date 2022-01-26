@@ -24,14 +24,20 @@ namespace AppKeener.Controllers
         // GET: Estoque
         [AllowAnonymous]
         public async Task<IActionResult> Index()
-        {
-            //
-            var QuantEnv = _context.Estoques.Sum(x => x.Enviado);         
-            var QuantRec = _context.Estoques.Sum(x => x.Recebido);
-            //
+        {            
             var applicationDbContext = _context.Estoques.Include(e => e.Produto);
-
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Movimentações
+        public async Task<IActionResult> Movimentacoes(Guid id)
+        {
+            var appDbContext = _context.Estoques.Where(a => a.ProdutoId == id);
+            foreach(var x in appDbContext)
+            {
+                x.Produto = _context.Produtos.Find(x.ProdutoId);
+            }
+            return View(await appDbContext.ToListAsync());
         }
 
         // GET: Estoque/Details/5
@@ -182,6 +188,6 @@ namespace AppKeener.Controllers
         private bool EstoqueExists(Guid id)
         {
             return _context.Estoques.Any(e => e.Id == id);
-        }
+        }        
     }
 }
