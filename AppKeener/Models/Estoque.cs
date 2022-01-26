@@ -23,6 +23,7 @@ namespace AppKeener.Models
         public int Enviado { get; set; }
 
         [DisplayName("Data de Movimentação")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime DataCadastro { get; set; }
 
         /* EF Relations */
