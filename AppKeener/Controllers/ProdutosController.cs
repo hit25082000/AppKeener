@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,31 +25,7 @@ namespace AppKeener.Controllers
         // GET: Produtos
         [AllowAnonymous]
         public async Task<IActionResult> Index()
-        {
-            foreach (var pro in _context.Produtos)
-            {
-                var produtos = _context.Estoques.FirstOrDefault(a => a.ProdutoId == pro.Id);
-                if (produtos != null)
-                {
-                    foreach (var mov in _context.Estoques)
-                    {
-                        var prodId = mov.ProdutoId.Equals(_context.Produtos.Find(mov.ProdutoId).Id);
-                        var Quant = _context.Estoques.Where(a => a.ProdutoId == mov.ProdutoId);
-                        var Total = Quant.Sum(item => item.Recebido - item.Enviado);
-
-                        if (prodId)
-                        {
-                            _context.Produtos.Find(mov.ProdutoId).Quantidade = Total;
-                        }
-                    }
-                }
-                else
-                {
-                    pro.Quantidade = 0;
-                }
-            }
-            await _context.SaveChangesAsync();
-
+        {            
             return View(await _context.Produtos.ToListAsync());
         }
 
@@ -79,20 +56,32 @@ namespace AppKeener.Controllers
             return View();
         }
 
+       
         // POST: Produtos/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Produto produto)
-        {
+        {          
+
             if (ModelState.IsValid)
             {
+                ////
+                //var imgPrefixo = Guid.NewGuid() + "_";
+                //if (!await UploadArquivo(produto.ImagemUpload, imgPrefixo))
+                //{
+                //    return View(produto);
+                //}
+                //produto.Imagem = imgPrefixo + produto.ImagemUpload.FileName;
+                ////
+
                 produto.Id = Guid.NewGuid();
                 produto.Quantidade = 0;
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(produto);
+
+            return View("index");
         }
 
         // GET: Produtos/Edit/5
@@ -167,7 +156,9 @@ namespace AppKeener.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var produto = await _context.Produtos.FindAsync(id);            
+            var produto = await _context.Produtos.FindAsync(id);   
+            
+
 
             foreach (var mov in _context.Estoques)
             {    
@@ -193,7 +184,6 @@ namespace AppKeener.Controllers
         public async Task<IActionResult> Movimentacoes(Guid id)
         {
             return RedirectToAction("Movimentacoes", "Estoque", new { @id = id });
-        }
-
+        }        
     }
 }

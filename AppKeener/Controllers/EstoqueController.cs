@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using AppKeener.Data;
 using AppKeener.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace AppKeener.Controllers
 {
@@ -15,11 +17,14 @@ namespace AppKeener.Controllers
     public class EstoqueController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public EstoqueController(ApplicationDbContext context)
+        public EstoqueController(
+            ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-        }        
+            _userManager = userManager;
+        }
 
         // GET: Estoque
         [AllowAnonymous]
@@ -67,19 +72,45 @@ namespace AppKeener.Controllers
             return View();
         }
 
+        
+
         // POST: Estoque/Create   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Estoque estoque)
         {
-            var Quant = _context.Produtos.Find(estoque.ProdutoId).Quantidade;
-            var Total = Quant + estoque.Recebido;
-            if (Total >= estoque.Enviado)
+            var quantidadeProdutos = _context.Produtos.Find(estoque.ProdutoId).Quantidade;
+            var quantidadeTotal = quantidadeProdutos + estoque.Recebido;
+            estoque.Usuario = _userManager.GetUserName(HttpContext.User);
+            if (quantidadeTotal >= estoque.Enviado)
             {
                 if (ModelState.IsValid)
                 {
                     estoque.Id = Guid.NewGuid();
                     _context.Add(estoque);
+                    await _context.SaveChangesAsync();
+                    foreach (var pro in _context.Produtos)
+                    {
+                        var produtos = _context.Estoques.FirstOrDefault(a => a.ProdutoId == pro.Id);
+                        if (produtos != null)
+                        {
+                            foreach (var mov in _context.Estoques)
+                            {
+                                var produtoId = mov.ProdutoId.Equals(_context.Produtos.Find(mov.ProdutoId).Id);
+                                var quantidade = _context.Estoques.Where(a => a.ProdutoId == mov.ProdutoId);
+                                var total = quantidade.Sum(item => item.Recebido - item.Enviado);
+
+                                if (produtoId)
+                                {
+                                    _context.Produtos.Find(mov.ProdutoId).Quantidade = total;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            pro.Quantidade = 0;
+                        }
+                    }
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }

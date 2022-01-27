@@ -11,8 +11,8 @@
 </p>
 <table class="table table-hover">
     <thead class="thead-dark">
-        <tr>            
-            <th>
+        <tr>       
+           <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
@@ -23,13 +23,16 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantidade)
-            </th>            
+            </th>  
+            <th>
+                Total
+            </th>  
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr >            
+        <tr > 
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
@@ -37,18 +40,23 @@
                 @Html.DisplayFor(modelItem => item.Descricao)
             </td>            
             <td>
-                @Html.DisplayFor(modelItem => item.Valor)
+                R$:@Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>            
+            </td>    
+            <td>
+@{
+    var total = item.Quantidade * item.Valor;
+}
+                R$:@Html.DisplayFor(modelItem => (total) )
+            </td>
            <td class="text-right">
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                 <a class="btn btn-outline-dark" asp-action="Movimentacoes" asp-route-id="@item.Id">Movimentações</a> |
                 <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
             </td>
-        </tr>
-}
+        </tr>}
     </tbody>
 </table>
