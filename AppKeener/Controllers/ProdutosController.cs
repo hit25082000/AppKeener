@@ -95,7 +95,8 @@ namespace AppKeener.Controllers
             if (produto == null)
             {
                 return NotFound();
-            }
+            }            
+            
             return View(produto);
         }
 
@@ -111,19 +112,14 @@ namespace AppKeener.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 try
                 {
-                    if (!(_context.Produtos.FirstOrDefault(a => a.Nome == produto.Nome) != null))
-                    {
-                        _context.Update(produto);
-                        await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        Console.Beep();
-
-                        return View("_AvisoProdutoCadastrado");
-                    }
+                    
+                    
+                            _context.Update(produto);
+                            await _context.SaveChangesAsync();
+                     
                     
                 }
                 catch (DbUpdateConcurrencyException)
