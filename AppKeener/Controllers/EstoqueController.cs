@@ -29,7 +29,32 @@ namespace AppKeener.Controllers
         // GET: Estoque
         [AllowAnonymous]
         public async Task<IActionResult> Index()
-        {            
+        {
+            foreach (var pro in _context.Produtos)
+            {
+                var produtos = _context.Estoques.FirstOrDefault(a => a.ProdutoId == pro.Id);
+                if (produtos != null)
+                {
+                    foreach (var mov in _context.Estoques)
+                    {
+                        var produtoId = mov.ProdutoId.Equals(_context.Produtos.Find(mov.ProdutoId).Id);
+                        var quantidade = _context.Estoques.Where(a => a.ProdutoId == mov.ProdutoId);
+                        var total = quantidade.Sum(item => item.Recebido - item.Enviado);
+
+                        if (produtoId)
+                        {
+                            _context.Produtos.Find(mov.ProdutoId).Quantidade = total;
+                        }
+                    }
+                }
+                else
+                {
+                    pro.Quantidade = 0;
+                }
+            }
+            await _context.SaveChangesAsync();
+
+
             var applicationDbContext = _context.Estoques.Include(e => e.Produto);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -89,35 +114,13 @@ namespace AppKeener.Controllers
                     estoque.Id = Guid.NewGuid();
                     _context.Add(estoque);
                     await _context.SaveChangesAsync();
-                    foreach (var pro in _context.Produtos)
-                    {
-                        var produtos = _context.Estoques.FirstOrDefault(a => a.ProdutoId == pro.Id);
-                        if (produtos != null)
-                        {
-                            foreach (var mov in _context.Estoques)
-                            {
-                                var produtoId = mov.ProdutoId.Equals(_context.Produtos.Find(mov.ProdutoId).Id);
-                                var quantidade = _context.Estoques.Where(a => a.ProdutoId == mov.ProdutoId);
-                                var total = quantidade.Sum(item => item.Recebido - item.Enviado);
-
-                                if (produtoId)
-                                {
-                                    _context.Produtos.Find(mov.ProdutoId).Quantidade = total;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            pro.Quantidade = 0;
-                        }
-                    }
-                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
             else
             {
                 Console.Beep();
+                return View("_AvisoEstoqueEsgotado");
             }
             
             ViewData["ProdutoId"] = new SelectList(_context.Produtos, "Id", "Nome", estoque.ProdutoId);
@@ -159,8 +162,11 @@ namespace AppKeener.Controllers
                 {
                     try
                         {
+
+                        estoque.Usuario = _userManager.GetUserName(HttpContext.User);
+
                         _context.Update(estoque);
-                            await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
                         }
                         catch (DbUpdateConcurrencyException)
                         {
@@ -179,9 +185,11 @@ namespace AppKeener.Controllers
             else
             {
                 Console.Beep();
+                return View("_AvisoEstoqueEsgotado");
+
             }
 
-            
+
             ViewData["ProdutoId"] = new SelectList(_context.Produtos, "Id", "Nome", estoque.ProdutoId);
             return View(estoque);
         }

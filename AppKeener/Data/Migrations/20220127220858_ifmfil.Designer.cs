@@ -4,6 +4,7 @@ using AppKeener.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppKeener.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220127220858_ifmfil")]
+    partial class ifmfil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +66,9 @@ namespace AppKeener.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<string>("Imagem")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -72,8 +77,8 @@ namespace AppKeener.Data.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<float>("Valor")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

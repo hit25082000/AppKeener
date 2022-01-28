@@ -71,6 +71,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/domin/source/repos/Dot6/Empty/AppKeener/AppKeener/Views/Shared/_AvisoEstoqueEsgotado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Bdmlzb0VzdG9xdWVFc2dvdGFkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/domin/source/repos/Dot6/Empty/AppKeener/AppKeener/Views/Shared/_AvisoMovimentacoesExcluidas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Bdmlzb01vdmltZW50YWNvZXNFeGNsdWlkYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/domin/source/repos/Dot6/Empty/AppKeener/AppKeener/Views/Shared/_AvisoProdutoCadastrado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Bdmlzb1Byb2R1dG9DYWRhc3RyYWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/domin/source/repos/Dot6/Empty/AppKeener/AppKeener/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

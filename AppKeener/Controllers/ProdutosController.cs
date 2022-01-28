@@ -16,12 +16,12 @@ namespace AppKeener.Controllers
     [Authorize]
     public class ProdutosController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;               
         public ProdutosController(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context;            
         }
+
         // GET: Produtos
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -64,24 +64,23 @@ namespace AppKeener.Controllers
         {          
 
             if (ModelState.IsValid)
-            {
-                ////
-                //var imgPrefixo = Guid.NewGuid() + "_";
-                //if (!await UploadArquivo(produto.ImagemUpload, imgPrefixo))
-                //{
-                //    return View(produto);
-                //}
-                //produto.Imagem = imgPrefixo + produto.ImagemUpload.FileName;
-                ////
+            {  
+                if(!(_context.Produtos.FirstOrDefault(a=>a.Nome == produto.Nome) != null)){
+                    produto.Id = Guid.NewGuid();
+                    produto.Quantidade = 0;
+                    _context.Add(produto);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                } 
+                else
+                {
+                    Console.Beep();
+                    return View("_AvisoProdutoCadastrado");
 
-                produto.Id = Guid.NewGuid();
-                produto.Quantidade = 0;
-                _context.Add(produto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                }
             }
 
-            return View("index");
+            return View(produto);
         }
 
         // GET: Produtos/Edit/5
@@ -114,8 +113,18 @@ namespace AppKeener.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
-                    await _context.SaveChangesAsync();
+                    if (!(_context.Produtos.FirstOrDefault(a => a.Nome == produto.Nome) != null))
+                    {
+                        _context.Update(produto);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        Console.Beep();
+
+                        return View("_AvisoProdutoCadastrado");
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

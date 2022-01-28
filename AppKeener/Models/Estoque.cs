@@ -15,10 +15,12 @@ namespace AppKeener.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("Recebidos")]
+        [Range(0, int.MaxValue, ErrorMessage = "Apenas numeros positivos")]
         public int Recebido { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("Enviados")]
+        [Range(0, int.MaxValue, ErrorMessage = "Apenas numeros positivos")]
         public int Enviado { get; set; }
 
         [DisplayName("Data de Movimentação")]
