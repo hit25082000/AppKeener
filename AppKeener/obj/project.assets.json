@@ -9776,11 +9776,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\domin\\source\\repos\\Dot6\\Empty\\AppKeener\\AppKeener\\AppKeener.csproj",
+      "projectUniqueName": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\AppKeener.csproj",
       "projectName": "AppKeener",
-      "projectPath": "C:\\Users\\domin\\source\\repos\\Dot6\\Empty\\AppKeener\\AppKeener\\AppKeener.csproj",
+      "projectPath": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\AppKeener.csproj",
       "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\domin\\source\\repos\\Dot6\\Empty\\AppKeener\\AppKeener\\obj\\",
+      "outputPath": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

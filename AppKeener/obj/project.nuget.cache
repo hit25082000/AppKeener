@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ckVaF9D48aGXzk3oED77QpFPlA4oAP1cKsjvyO+I8rupVuiKUIOLDrxz6H61BjWTwk4EYx9fT50ES4ZwPsT8hQ==",
+  "dgSpecHash": "VDhXfJONbHT8V1YmmICi7JM00qgoewQs51EXGd4RFwDfzqvDl28oSwUiDlWa8jTumkTrPUY5RQ7IybTmsbxHYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\domin\\source\\repos\\Dot6\\Empty\\AppKeener\\AppKeener\\AppKeener.csproj",
+  "projectFilePath": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\AppKeener.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\domin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\domin\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

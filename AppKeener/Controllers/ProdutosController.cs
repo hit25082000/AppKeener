@@ -115,12 +115,10 @@ namespace AppKeener.Controllers
                 
                 try
                 {
-                    
-                    
+                        
                             _context.Update(produto);
                             await _context.SaveChangesAsync();
-                     
-                    
+                       
                 }
                 catch (DbUpdateConcurrencyException)
                 {
