@@ -68,20 +68,22 @@ namespace AppKeener.Controllers
             if (ModelState.IsValid)
             {  
                 if(!(_context.Produtos.FirstOrDefault(a=>a.Nome == model.Nome) != null)){
-                   
 
-                    string uniqueFileName = UploadedFile(model);
-
-                    Produto produto = new Produto
+                    var imgPrefixo = Guid.NewGuid() + "_";
+                    if (!await UploadArquivo(model.ProfileImage, imgPrefixo))
                     {
-                        Nome = model.Nome,
-                        Descricao = model.Descricao,
-                        Id = Guid.NewGuid(),
-                        Quantidade = 0,
-                        DataCadastro = model.DataCadastro,
-                        Valor = model.Valor,                        
-                        Imagem = uniqueFileName,
-                    };
+                        return View(model);
+                    }
+
+                    Produto produto = new Produto();
+
+                    produto.Imagem = imgPrefixo + model.ProfileImage.FileName;
+                    produto.Nome = model.Nome;
+                    produto.Descricao = model.Descricao;
+                    produto.Valor = model.Valor;
+                    produto.Quantidade = 0;
+                    produto.DataCadastro = model.DataCadastro;
+                    produto.Id = Guid.NewGuid();
 
                     _context.Add(produto);
                     await _context.SaveChangesAsync();
@@ -96,24 +98,7 @@ namespace AppKeener.Controllers
             }
 
             return View();
-        }
-
-        private string UploadedFile(ProdutoViewModel model)
-        {
-            string uniqueFileName = null;
-
-            if (model.ProfileImage != null)
-            {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.ProfileImage.CopyTo(fileStream);
-                }
-            }
-            return uniqueFileName;
-        }
+        }      
 
 
         // GET: Produtos/Edit/5
@@ -219,6 +204,25 @@ namespace AppKeener.Controllers
         public IActionResult Movimentacoes(Guid id)
         {
             return RedirectToAction("Movimentacoes", "Estoque", new { @id = id });
+        }
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }

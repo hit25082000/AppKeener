@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4tdD78USmc7zwUMB+B71wdSaLMT1LtFgxu+2gPbNFzA=",
+  "Hash": "GIYIl6+rfH1HgcUxHxgw7MsCnKVRiN0YRhsn/k4LbW4=",
   "Source": "AppKeener",
   "BasePath": "_content/AppKeener",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\wwwroot\\Imagens\\52937e7a-24e3-433b-9712-9fe86a790b35_mariana coreano.jpeg",
+      "SourceId": "AppKeener",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\wwwroot\\",
+      "BasePath": "_content/AppKeener",
+      "RelativePath": "Imagens/52937e7a-24e3-433b-9712-9fe86a790b35_mariana coreano.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagens\\52937e7a-24e3-433b-9712-9fe86a790b35_mariana coreano.jpeg"
     },
     {
       "Identity": "C:\\Dev\\Back\\DotNet\\AppKeener\\AppKeener\\wwwroot\\js\\site.js",
