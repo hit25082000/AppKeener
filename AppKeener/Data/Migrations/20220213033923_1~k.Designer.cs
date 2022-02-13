@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppKeener.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220124015841_DefaultTest")]
-    partial class DefaultTest
+    [Migration("20220213033923_1~k")]
+    partial class _1k
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,19 +33,17 @@ namespace AppKeener.Data.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<decimal>("Enviado")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Enviado")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("ProdutoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Recebido")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Recebido")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Usuario")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -68,22 +66,20 @@ namespace AppKeener.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<Guid>("FornecedorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Imagem")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Quantidade")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Valor")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

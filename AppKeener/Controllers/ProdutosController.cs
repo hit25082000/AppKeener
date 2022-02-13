@@ -10,15 +10,18 @@ using AppKeener.Data;
 using AppKeener.Models;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using AppKeener.ViewModels;
 
 namespace AppKeener.Controllers
 {
     [Authorize]
     public class ProdutosController : Controller
     {
+        private readonly IWebHostEnvironment webHostEnvironment;        
         private readonly ApplicationDbContext _context;               
-        public ProdutosController(ApplicationDbContext context)
+        public ProdutosController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
+            webHostEnvironment = hostEnvironment;
             _context = context;            
         }
 
@@ -60,14 +63,26 @@ namespace AppKeener.Controllers
         // POST: Produtos/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Produto produto)
-        {          
-
+        public async Task<IActionResult> Create(ProdutoViewModel model)
+        {
             if (ModelState.IsValid)
             {  
-                if(!(_context.Produtos.FirstOrDefault(a=>a.Nome == produto.Nome) != null)){
-                    produto.Id = Guid.NewGuid();
-                    produto.Quantidade = 0;
+                if(!(_context.Produtos.FirstOrDefault(a=>a.Nome == model.Nome) != null)){
+                   
+
+                    string uniqueFileName = UploadedFile(model);
+
+                    Produto produto = new Produto
+                    {
+                        Nome = model.Nome,
+                        Descricao = model.Descricao,
+                        Id = Guid.NewGuid(),
+                        Quantidade = 0,
+                        DataCadastro = model.DataCadastro,
+                        Valor = model.Valor,                        
+                        Imagem = uniqueFileName,
+                    };
+
                     _context.Add(produto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -80,8 +95,26 @@ namespace AppKeener.Controllers
                 }
             }
 
-            return View(produto);
+            return View();
         }
+
+        private string UploadedFile(ProdutoViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
 
         // GET: Produtos/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -114,10 +147,9 @@ namespace AppKeener.Controllers
             {
                 
                 try
-                {
-                        
-                            _context.Update(produto);
-                            await _context.SaveChangesAsync();
+                {                        
+                     _context.Update(produto);
+                    await _context.SaveChangesAsync();
                        
                 }
                 catch (DbUpdateConcurrencyException)
@@ -184,9 +216,9 @@ namespace AppKeener.Controllers
         }
 
         //GET: Movimentações
-        public async Task<IActionResult> Movimentacoes(Guid id)
+        public IActionResult Movimentacoes(Guid id)
         {
             return RedirectToAction("Movimentacoes", "Estoque", new { @id = id });
-        }        
+        }
     }
 }

@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
-    "\\AppKeener\\Areas\\Identity",
-    "\\AppKeener\\Areas\\Identity\\Pages",
+    "",
     "\\AppKeener\\Controllers",
     "\\AppKeener\\Views"
   ],
+  "SelectedNode": "\\AppKeener.sln",
   "PreviewInSolutionExplorer": false
 }

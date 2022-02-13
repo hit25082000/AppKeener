@@ -4,22 +4,22 @@
 
 namespace AppKeener.Data.Migrations
 {
-    public partial class ifmfil : Migration
+    public partial class _1lla : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Imagem",
+            migrationBuilder.RenameColumn(
+                name: "ProfilePicture",
                 table: "Produtos",
-                type: "nvarchar(max)",
-                nullable: true);
+                newName: "Imagem");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.RenameColumn(
                 name: "Imagem",
-                table: "Produtos");
+                table: "Produtos",
+                newName: "ProfilePicture");
         }
     }
 }

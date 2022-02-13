@@ -1,10 +1,7 @@
-﻿@model AppKeener.Models.Produto
-
+﻿@model AppKeener.ViewModels.ProdutoViewModel 
 @{
     ViewData["Title"] = "Adicionar produto";
-}
- 
-                
+}                
 
 <h1>Adicionar Produto</h1>
 <hr />
@@ -21,7 +18,15 @@
                 <label asp-for="Descricao" class="control-label"></label>
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>            
+            </div>              
+            <div class="form-group">  
+                            <label asp-for="ProfileImage" class="control-label"></label>  
+                            <div class="custom-file">  
+                                <input asp-for="ProfileImage" class="custom-file-input" id="customFile">  
+                                <label class="custom-file-label" for="customFile">Choose file</label>  
+                            </div>  
+            <span asp-validation-for="ProfileImage" class="text-danger"></span>  
+            </div>
             <div class="form-group">
                 <label asp-for="Valor" class="control-label"></label>
                 <input asp-for="Valor" class="form-control" />
@@ -37,14 +42,19 @@
                 <input type="submit" value="Adicionar" class="btn btn-success" /> |
                 <a class="btn btn-info"asp-action="Index">Voltar</a>
             </div>
-            <br />
-            
+            <br />            
         </form>
     </div>
 </div> 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">  
+        $(".custom-file-input").on("change", function () {  
+            var fileName = $(this).val().split("\\").pop();  
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
+        });  
+    </script>
     
     
 }

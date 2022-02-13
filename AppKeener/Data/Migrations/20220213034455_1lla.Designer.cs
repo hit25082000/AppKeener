@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppKeener.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220126222013_secn")]
-    partial class secn
+    [Migration("20220213034455_1lla")]
+    partial class _1lla
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,11 +33,6 @@ namespace AppKeener.Data.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<int>("Enviado")
                         .HasColumnType("int");
 
@@ -46,6 +41,9 @@ namespace AppKeener.Data.Migrations
 
                     b.Property<int>("Recebido")
                         .HasColumnType("int");
+
+                    b.Property<string>("Usuario")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -69,6 +67,7 @@ namespace AppKeener.Data.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Imagem")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
@@ -79,8 +78,8 @@ namespace AppKeener.Data.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Valor")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

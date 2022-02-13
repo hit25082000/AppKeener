@@ -4,7 +4,7 @@
 
 namespace AppKeener.Data.Migrations
 {
-    public partial class secn : Migration
+    public partial class _1k : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AppKeener.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AppKeener.Models
+namespace AppKeener.ViewModels
 {
-    public class Produto : Entity
+    public class ProdutoViewModel 
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(200, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
@@ -18,9 +19,10 @@ namespace AppKeener.Models
         [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string Descricao { get; set; }
 
-        public string Imagem { get; set; }
+        [Display(Name = "Profile Picture")]
+        public IFormFile ProfileImage { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]  
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public float Valor { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -29,9 +31,7 @@ namespace AppKeener.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("Data de Adição")]
         public DateTime DataCadastro { get; set; }
-
-        /* EF Relations */
-        public IEnumerable<Estoque> Estoque { get; set; }
+        
     }
 }
    

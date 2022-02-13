@@ -4,30 +4,30 @@
 
 namespace AppKeener.Data.Migrations
 {
-    public partial class userEmail : Migration
+    public partial class xf : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Usuario",
-                table: "Estoques",
+                name: "Imagem",
+                table: "Produtos",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(30)",
-                oldMaxLength: 30);
+                oldType: "nvarchar(max)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Usuario",
-                table: "Estoques",
-                type: "nvarchar(30)",
-                maxLength: 30,
+                name: "Imagem",
+                table: "Produtos",
+                type: "nvarchar(max)",
                 nullable: false,
+                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                oldType: "nvarchar(max)",
+                oldNullable: true);
         }
     }
 }

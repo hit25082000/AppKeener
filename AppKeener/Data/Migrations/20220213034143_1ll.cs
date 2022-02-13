@@ -4,30 +4,28 @@
 
 namespace AppKeener.Data.Migrations
 {
-    public partial class positive : Migration
+    public partial class _1ll : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Usuario",
-                table: "Estoques",
+                name: "ProfilePicture",
+                table: "Produtos",
                 type: "nvarchar(max)",
-                nullable: true,
+                nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                oldType: "nvarchar(200)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Usuario",
-                table: "Estoques",
-                type: "nvarchar(max)",
+                name: "ProfilePicture",
+                table: "Produtos",
+                type: "nvarchar(200)",
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                oldType: "nvarchar(max)");
         }
     }
 }
