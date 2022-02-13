@@ -92,7 +92,8 @@ namespace AppKeener.Controllers
                 else
                 {
                     Console.Beep();
-                    return View("_AvisoProdutoCadastrado");
+                    ViewBag.Message += ",";
+                    return View();
 
                 }
             }

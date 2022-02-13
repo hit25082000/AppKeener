@@ -45,6 +45,13 @@
             <br />            
         </form>
     </div>
+    @if (ViewBag.Message != null)
+    {
+          <div id="cookieConsent" class="alert alert-info alert-dimissible fade show" role="alert">
+            Produto ja cadastrado
+        </div>
+           
+    }
 </div> 
 
 @section Scripts {
