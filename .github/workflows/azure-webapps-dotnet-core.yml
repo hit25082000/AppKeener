@@ -64,6 +64,9 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Azure Login
+        uses: Azure/login@v2.0.0            
+
   deploy:
     permissions:
       contents: none
